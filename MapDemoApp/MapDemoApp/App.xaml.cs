@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MapDemoApp.Views;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,7 +11,9 @@ namespace MapDemoApp
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new NavigationPage(new MainPage());
+            //MainPage = new MainPage();
+            //MainPage = new StockPage();
         }
 
         protected override void OnStart()

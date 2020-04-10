@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="MapDemoApp.Views.StockPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Entry x:Name="ctSymbol" ></Entry>
+            <Button Clicked="BtnAdd_Clicked" Text="Add"></Button>
+
+            <Button Clicked="BtnGetById_Clicked" Text="GetById"></Button>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <Entry x:Name="ctId" Placeholder="Digite Id"/>
+                <Entry x:Name="ctNombre" Placeholder="Digite Nombre"/>
+            </StackLayout>
+            <Label x:Name="lbGetById"></Label>
+
+            <Button Clicked="BtnFill_Clicked" Text="Fill"></Button>
+
+                    <Label x:Name="lbFill"></Label>
+            </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

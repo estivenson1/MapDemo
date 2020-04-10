@@ -1,36 +1,47 @@
 ﻿using MapDemoApp.Services;
-using MapDemoApp.Views;
+using MapDemoApp.ViewModels;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
+using Xamarin.Forms.Xaml;
 
-namespace MapDemoApp
+namespace MapDemoApp.Views
 {
-    // Learn more about making custom code visible in the Xamarin.Forms previewer
-    // by visiting https://aka.ms/xamarinforms-previewer
-    [DesignTimeVisible(false)]
-    public partial class MainPage : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class StartTripPage : ContentPage
     {
         private readonly GeolocatorService _geolocatorService;
-        public MainPage()
+        private static StartTripPage _instance;
+
+        private StartTripPageViewModel _startTripPageVM;
+        public StartTripPage()
         {
             InitializeComponent();
-            _geolocatorService =new GeolocatorService();
+            _instance = this;
+            _geolocatorService = new GeolocatorService();
+
+            _startTripPageVM = new StartTripPageViewModel();
+            BindingContext = _startTripPageVM;
         }
 
-        //private readonly IGeolocatorService _geolocatorService;
-        //public MainPage(IGeolocatorService geolocatorService)
-        //{
-        //    InitializeComponent();
-        //    _geolocatorService = geolocatorService;
-        //}
+        public static StartTripPage GetInstance()
+        {
+            return _instance;
+        }
+
+        public void AddPin(Position position, string address, string label, PinType pinType)
+        {
+            MyMap.Pins.Add(new Pin
+            {
+                Address = address,
+                Label = label,
+                Position = position,
+                Type = pinType
+            });
+        }
 
         protected override void OnAppearing()
         {
@@ -64,6 +75,28 @@ namespace MapDemoApp
                 Distance.FromKilometers(.2)));
         }
 
+        public void DrawLine(Position a, Position b)
+        {
+            if (Device.RuntimePlatform == Device.Android)
+            {
+                Polygon polygon = new Polygon
+                {
+                    StrokeWidth = 10,
+                    StrokeColor = Color.FromHex("#8D07F6"),
+                    FillColor = Color.FromHex("#8D07F6"),
+                    Geopath = { a, b }
+                };
+
+                MyMap.MapElements.Add(polygon);
+            }
+            else
+            {
+                AddPin(b, string.Empty, string.Empty, PinType.SavedPin);
+            }
+
+            MoveMap(b);
+        }
+
         private async Task<bool> CheckLocationPermisionsAsync()
         {
             PermissionStatus permissionLocation = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
@@ -86,12 +119,5 @@ namespace MapDemoApp
                    permissionLocationAlways == PermissionStatus.Granted ||
                    permissionLocationWhenInUse == PermissionStatus.Granted;
         }
-
-        private async void BtnVer_Clicked(object sender, EventArgs e)
-        {
-          await   this.Navigation.PushAsync(new StartTripPage());
-        }
     }
-
-
 }

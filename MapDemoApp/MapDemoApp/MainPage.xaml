@@ -8,14 +8,14 @@
              x:Class="MapDemoApp.MainPage">
 
     <StackLayout>
-        <!--<maps:Map x:Name="MyMap"
-                  MapType="Street"/>-->
+        <maps:Map x:Name="MyMap"
+                  MapType="Street"/>
         <StackLayout Padding="5">
             <Button BackgroundColor="Green"
                     CornerRadius="20"
                     HeightRequest="40"
                     Margin="10,0"
-                    Text="Start Trip"
+                    Text="Iniciar Data Covid"
                     Clicked="BtnVer_Clicked"
                     TextColor="White"/>
         </StackLayout>

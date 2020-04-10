@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+               xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps" 
+             x:Class="MapDemoApp.Views.StartTripPage">
+
+    <AbsoluteLayout>
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                     AbsoluteLayout.LayoutFlags="All" 
+                     Padding="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <!--<Label Grid.Row="0" 
+                       Grid.Column="0"
+                       Text="Plaque"
+                       VerticalOptions="Center"/>
+                <Entry Grid.Row="0" 
+                       Grid.Column="1"
+                       FontSize="48" 
+                       HorizontalOptions="FillAndExpand"
+                       Placeholder="PlaquePlaceHolder" 
+                       Text="{Binding Plaque}"/>-->
+                <Label Grid.Row="1" 
+                       Grid.Column="0"
+                       HorizontalOptions="FillAndExpand" 
+                       Text="Origen"
+                       VerticalOptions="Center"/>
+                <StackLayout Grid.Row="1" 
+                             Grid.Column="1"
+                             Orientation="Horizontal">
+                    <Entry HorizontalOptions="FillAndExpand" 
+                           Placeholder="Dirección"
+                           Text="{Binding Source}"/>
+                    <ImageButton Command="{Binding GetAddressCommand}"
+                                 Source="ic_home"/>
+                </StackLayout>
+            </Grid>
+            <maps:Map x:Name="MyMap"
+                        MapType="Street"/>
+            <StackLayout Orientation="Horizontal">
+                <Button Command="{Binding StartTripCommand}" 
+                        IsEnabled="{Binding IsEnabled}"
+                        Text="Iniciar"/>
+                <!--<Button Command="{Binding CancelTripCommand}" 
+                        IsVisible="{Binding IsSecondButtonVisible}"
+                        Style="{StaticResource DangerButton}"
+                        Text=" Cancel"/>-->
+            </StackLayout>
+        </StackLayout>
+        <!--<busyindicator:SfBusyIndicator AnimationType="Gear" 
+                                       AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
+                	                   AbsoluteLayout.LayoutFlags="All"
+                	                   BackgroundColor="{StaticResource ColorAccent}"
+                	                   HorizontalOptions="Center"
+                	                   TextColor="{StaticResource ColorFontInverse}"
+                	                   IsVisible="{Binding IsRunning}"
+                	                   Title="{i18n:Translate Loading}"
+                	                   VerticalOptions="Center"
+                	                   ViewBoxWidth="80"
+                	                   ViewBoxHeight="80" />-->
+    </AbsoluteLayout>
+</ContentPage>
